@@ -36,3 +36,39 @@ Hysteria2客户端配置信息保存在：
 https://1024.day/d/1296
 
 **提醒：连不上的朋友，建议先检查一下服务器自带防火墙有没有关闭？**
+
+---
+
+卸载方法如下：
+## 卸载ss-libev，命令如下：
+
+```
+systemctl stop shadowsocks
+rm /usr/bin/ss-server
+rm /etc/systemd/system/shadowsocks.service
+systemctl daemon-reload
+```
+
+## 卸载 v2ray-wss 命令如下：
+
+```
+systemctl stop v2ray
+systemctl stop nginx
+rm /usr/local/bin/v2ray
+rm /etc/systemd/system/v2ray.service
+rm /usr/sbin/nginx
+rm /lib/systemd/system/nginx.service
+systemctl daemon-reload
+```
+
+## 卸载 Reality 命令如下：
+
+```
+systemctl stop xray && bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove --version 1.8.1
+```
+## 安装BBR加速
+
+` bash <(curl -Lso- https://git.io/kernel.sh) `
+
+**提醒：连不上的朋友，建议先检查一下服务器自带防火墙有没有关闭？**
+
