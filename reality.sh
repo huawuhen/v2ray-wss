@@ -13,6 +13,15 @@ v2uuid=$(cat /proc/sys/kernel/random/uuid)
 read -t 15 -p "回车或等待15秒为默认端口443，或者自定义端口请输入(1-65535)："  getPort
 if [ -z $getPort ];then
     getPort=443
+    echo ""
+fi
+
+echo
+
+read -t 30 -p "回车或等待30秒为默认域名 www.amazon.com，或者自定义SNI请输入："  getSni
+if [ -z $getSni ];then
+    getSni=www.amazon.com
+    echo ""
 fi
 
 getIP(){
@@ -61,21 +70,17 @@ cat >/usr/local/etc/xray/config.json<<EOF
                 "security": "reality",
                 "realitySettings": {
                     "show": false,
-                    "dest": "www.amazon.com:443",
+                    "dest": "$getSni:443",
                     "xver": 0,
                     "serverNames": [
-                        "www.amazon.com",
-                        "addons.mozilla.org",
-                        "www.un.org",
-                        "www.tesla.com"
+                        "$getSni"
                     ],
                     "privateKey": "$rePrivateKey",
                     "minClientVer": "",
                     "maxClientVer": "",
                     "maxTimeDiff": 0,
                     "shortIds": [
-                        "88",
-                        "123abc"
+                        "88"
                     ]
                 }
             }
@@ -108,10 +113,10 @@ UUID：${v2uuid}
 传输协议：tcp
 Public key：${rePublicKey}
 底层传输：reality
-SNI: www.amazon.com
+SNI: ${getSni}
 shortIds: 88
 ====================================
-vless://${v2uuid}@$(getIP):${getPort}?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.amazon.com&fp=chrome&pbk=${rePublicKey}&sid=88&type=tcp&headerType=none#1024-reality
+vless://${v2uuid}@$(getIP):${getPort}?encryption=none&flow=xtls-rprx-vision&security=reality&sni=${getSni}&fp=chrome&pbk=${rePublicKey}&sid=88&type=tcp&headerType=none#1024-reality
 
 }
 EOF
@@ -132,10 +137,10 @@ client_re(){
     echo "传输协议：tcp"
     echo "Public key：${rePublicKey}"
     echo "底层传输：reality"
-    echo "SNI: www.amazon.com"
+    echo "SNI: ${getSni}"
     echo "shortIds: 88"
     echo "===================================="
-    echo "vless://${v2uuid}@$(getIP):${getPort}?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.amazon.com&fp=chrome&pbk=${rePublicKey}&sid=88&type=tcp&headerType=none#1024-reality"
+    echo "vless://${v2uuid}@$(getIP):${getPort}?encryption=none&flow=xtls-rprx-vision&security=reality&sni=${getSni}&fp=chrome&pbk=${rePublicKey}&sid=88&type=tcp&headerType=none#1024-reality"
     echo
 }
 
