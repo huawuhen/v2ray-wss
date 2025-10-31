@@ -8,9 +8,8 @@
 wget git.io/tcp-wss.sh && bash tcp-wss.sh
 ```
 
-**便宜VPS推荐：** https://hostalk.net/deals.html
-
-![image](https://github.com/user-attachments/assets/0b6db263-a8ee-48c5-8605-048e3e25c967)
+**优选SIN：**
+https://bulianglin.com/archives/nicename.html
 
 已测试系统如下：
 
